@@ -106,6 +106,7 @@ void loop()
   //getBatLevel();
   //getRollerState();
   //get settings
+  Serial.println("Geting device settings");
   getSettings();
   
   //get sensor readings and send
@@ -116,7 +117,7 @@ void loop()
   float longitude = getLon();
   String timeStamp = getTimestamp();
   
-  Serial.print("The BatLevel");
+  Serial.print("The data to be sent: BatLevel");
   Serial.print(batVal);
   Serial.print("SwitchVal");
   Serial.print(switchVal);
@@ -124,6 +125,8 @@ void loop()
   Serial.print(tempVal);
   Serial.print("Latitude");
   Serial.print(latitude);
+  Serial.print("Timestamp");
+  Serial.print(timeStamp);
   Serial.print("Longitude");
   Serial.println(longitude);
   sendData(batVal,longitude,latitude,switchVal,accuracy,timeStamp, tempVal);
@@ -446,8 +449,6 @@ void sendPseudoData() {
     Serial.println(F("Failed to switch module to low power mode"));
   }
 
-  // End of program... wait...
-  while (1);
 }
 void getSettings() {
   // Establish GPRS connectivity (5 trials)
@@ -519,8 +520,7 @@ void getSettings() {
     Serial.println(F("Failed to switch module to low power mode"));
   }
 
-  // End of program... wait...
-  while (1);
+  
 }
 
 void writeEeprom(int address,int val) {
